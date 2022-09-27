@@ -37,4 +37,9 @@ module.exports = {
       id: Joi.string().required(),
     }),
   },
+  getUserSchema: {
+    params: Joi.object().required().keys({
+      id: Joi.string().required(),
+    }),
+  },
 };
