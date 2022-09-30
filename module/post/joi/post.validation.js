@@ -14,4 +14,19 @@ module.exports = {
     }),
     file: Joi.object().optional(),
   },
+  postCommentSchema: {
+    params: Joi.object().required().keys({
+      id: Joi.string().required(),
+    }),
+  },
+  deletePostSchema: {
+    params: Joi.object().required().keys({
+      id: Joi.string().required(),
+    }),
+  },
+  getPostSchema: {
+    params: Joi.object().required().keys({
+      id: Joi.string().required(),
+    }),
+  },
 };

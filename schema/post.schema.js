@@ -11,6 +11,25 @@ const likesSchema = new mongoose.Schema(
   }
 );
 
+const commentSchema = new mongoose.Schema(
+  {
+    userID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+    desc: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: Array,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const postSchema = new mongoose.Schema(
   {
     userId: {
@@ -28,6 +47,7 @@ const postSchema = new mongoose.Schema(
     likes: {
       type: [likesSchema],
     },
+    comment: [commentSchema],
   },
   {
     timestamps: true,

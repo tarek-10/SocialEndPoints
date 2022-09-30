@@ -1,8 +1,16 @@
 const CREATE_POST = "post:CREATE_POST";
 const LIKE_POST = "post:LIKE_POST";
 const UPDATE_POST = "post:UPDATE_POST";
+const CREATE_COMMENT = "post:CREATE_COMMENT";
+const DELETE_POST = "post:DELETE_POST";
+const GET_POST = "post:GET_POST";
+const TIMELINE_POSTS = "post:TIMELINE_POSTS";
 module.exports = {
   CREATE_POST,
   LIKE_POST,
   UPDATE_POST,
+  CREATE_COMMENT,
+  DELETE_POST,
+  GET_POST,
+  TIMELINE_POSTS,
 };
