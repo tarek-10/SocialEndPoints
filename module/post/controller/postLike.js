@@ -6,19 +6,60 @@ const postLikeFun = async (req, res) => {
     const { id } = req.params;
 
     const post = await postModel.findOne({ _id: id });
-    if (post) {
-      post.likes.push({ userId: req.user._id });
-      const updatedPost = await postModel.findOneAndUpdate(
-        { _id: post._id },
-        {
-          likes: post.likes,
-        },
-        { new: true }
-      );
-
-      res.status(StatusCodes.CREATED).json({ message: "success", updatedPost });
+    if (!post) {
+      res.status(StatusCodes.NOT_FOUND).json({ message: "not found" });
     } else {
-      res.status(StatusCodes.NOT_FOUND).json({ messag: "post not found" });
+      const findLike = post.likes.find((ele) => {
+        return ele.userID.toString() == req.user._id.toString();
+      });
+      if (!findLike) {
+        const likePosts = await postModel
+          .findOneAndUpdate(
+            { _id: post._id },
+            {
+              $push: {
+                likes: {
+                  userID: req.user._id,
+                },
+              },
+            },
+            { new: true }
+          )
+          .populate([
+            {
+              path: "likes.userID",
+              model: "user",
+              select: "username profilePicture",
+            },
+          ]);
+
+        res
+          .status(StatusCodes.CREATED)
+          .json({ message: "success like post", likePosts });
+      } else {
+        const disLikePosts = await postModel
+          .findOneAndUpdate(
+            { _id: post._id },
+            {
+              $pull: {
+                likes: {
+                  userID: req.user._id,
+                },
+              },
+            },
+            { new: true }
+          )
+          .populate([
+            {
+              path: "likes.userID",
+              model: "user",
+              select: "username  profilePicture",
+            },
+          ]);
+        res
+          .status(StatusCodes.CREATED)
+          .json({ message: "success dislike post", disLikePosts });
+      }
     }
   } catch (error) {
     res

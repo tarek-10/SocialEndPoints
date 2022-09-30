@@ -2,6 +2,10 @@ const {
   CREATE_POST,
   LIKE_POST,
   UPDATE_POST,
+  CREATE_COMMENT,
+  DELETE_POST,
+  GET_POST,
+  TIMELINE_POSTS,
 } = require("../../module/post/endPoints");
 const {
   UPDATING_USER,
@@ -20,4 +24,8 @@ module.exports = [
   CREATE_POST,
   LIKE_POST,
   UPDATE_POST,
+  CREATE_COMMENT,
+  DELETE_POST,
+  GET_POST,
+  TIMELINE_POSTS,
 ];
